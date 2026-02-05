@@ -1,8 +1,11 @@
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { removeUser } from "../utils/userSlice";
+import { addUser, removeUser } from "../utils/userSlice";
+import { useEffect } from "react";
+import { LOGO, USER_AVATER } from "../utils/constrains";
+import HeaderShimmer from "./HeaderShimmer";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,13 +15,37 @@ const Header = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      dispatch(removeUser());   // ✅ clear redux
-      navigate("/");            // ✅ go to login
+      // ❌ no manual dispatch here
     } catch (error) {
       console.error(error);
-      navigate("/");            // ❌ don't go to /error
     }
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+
+        dispatch(
+          addUser({
+            uid,
+            email,
+            displayName,
+            photoURL,
+          })
+        );
+
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch, navigate]);
+
+  if (!user) return <HeaderShimmer />;
 
   return (
     <div
@@ -28,7 +55,7 @@ const Header = () => {
     >
       {/* Logo */}
       <img
-        src="https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production_2026-01-09/consent/87b6a5c0-0104-4e96-a291-092c11350111/019ae4b5-d8fb-7693-90ba-7a61d24a8837/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+        src={LOGO}
         alt="Netflix Logo"
         className="w-32 cursor-pointer hover:scale-105 transition-transform"
         onClick={() => navigate("/browse")}
@@ -37,18 +64,27 @@ const Header = () => {
       {/* User Section */}
       {user && (
         <div className="flex items-center gap-3">
+          <p
+            className="
+              text-white text-2xl font-semibold
+              tracking-wide
+              max-w-[120px] truncate
+            "
+          >
+            {user.displayName || "User"}
+          </p>
+
           <img
-            alt="usericon"
-            src={
-              user.photoURL ||
-              "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
-            }
-            className="w-10 h-10 rounded-md border border-gray-500 cursor-pointer hover:scale-110 transition-transform"
+            alt="user avatar"
+            src={user.photoURL || USER_AVATER}
+            className="w-10 h-10 rounded-md border border-gray-500
+            cursor-pointer hover:scale-110 transition-transform"
           />
 
           <button
             onClick={handleSignOut}
-            className="text-white text-sm font-semibold hover:text-red-500 transition-colors"
+            className="text-white text-sm font-semibold
+            hover:text-red-500 transition-colors"
           >
             Sign Out
           </button>

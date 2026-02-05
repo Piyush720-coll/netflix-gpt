@@ -7,16 +7,11 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addUser } from "../utils/userSlice";
+import { USER_AVATER } from "../utils/constrains";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const email = useRef(null);
   const password = useRef(null);
@@ -29,6 +24,7 @@ const Login = () => {
       email: email.current.value,
       password: password.current.value,
       fullName: fullName.current?.value || "",
+      photoURL: USER_AVATER,
       isSignIn: isSignInForm,
     });
 
@@ -38,51 +34,29 @@ const Login = () => {
     try {
       // ---------- SIGN UP ----------
       if (!isSignInForm) {
-        const userCredential = await createUserWithEmailAndPassword(
+        await createUserWithEmailAndPassword(
           auth,
           email.current.value,
           password.current.value
         );
 
-        const user = userCredential.user;
-
-        await updateProfile(user, {
-          displayName: fullName.current?.value || "",
-          photoURL: "https://avatars.githubusercontent.com/u/211003528?v=4",
+        await updateProfile(auth.currentUser, {
+          displayName: fullName.current.value,
+          photoURL: USER_AVATER,
         });
-
-        dispatch(
-          addUser({
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-          })
-        );
-
-        navigate("/browse");
       }
 
       // ---------- SIGN IN ----------
       else {
-        const userCredential = await signInWithEmailAndPassword(
+        await signInWithEmailAndPassword(
           auth,
           email.current.value,
           password.current.value
         );
-
-        const user = userCredential.user;
-
-        dispatch(
-          addUser({
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
-          })
-        );
-
-        navigate("/browse");
+        await updateProfile(auth.currentUser, {
+          displayName: fullName.current.value,
+          photoURL: USER_AVATER,
+        });
       }
     } catch (error) {
       setErrorMessage(error.code + " - " + error.message);
