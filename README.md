@@ -29,6 +29,13 @@
 - Update Store with Trailer Video Date
 - Enbedded the Youtube Video and make it autoplay and mute
 - Tailwind Classes to make it look awesome
+- Build secondry component
+- Build Movie List
+- Build Movie Cart
+- TMDB Image CDN URL
+- Made the Browse page amazing with tailwind CSS
+- usePopularMovies Custome hook
+
 
 
 
