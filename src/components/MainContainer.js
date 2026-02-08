@@ -9,11 +9,11 @@ const MainContainer = () => {
   if (!movies) return <VideoShimmer />;
 
   const mainMovie = movies[0];
-  const { original_title, overview, id } = mainMovie;
+  const { id } = mainMovie;
 
   return (
     <div className="relative w-full h-screen overflow-hidden">
-      <VideoTitle title={original_title} overview={overview} />
+      <VideoTitle movie={mainMovie}/>
       <VideoBackground movieId={id} />
     </div>
   );

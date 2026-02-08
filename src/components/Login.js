@@ -7,7 +7,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { USER_AVATER } from "../utils/constrains";
+import { BG_URL, USER_AVATER } from "../utils/constrains";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -45,7 +45,6 @@ const Login = () => {
           photoURL: USER_AVATER,
         });
       }
-
       // ---------- SIGN IN ----------
       else {
         await signInWithEmailAndPassword(
@@ -53,6 +52,7 @@ const Login = () => {
           email.current.value,
           password.current.value
         );
+
         await updateProfile(auth.currentUser, {
           displayName: fullName.current.value,
           photoURL: USER_AVATER,
@@ -79,17 +79,16 @@ const Login = () => {
       </div>
 
       <img
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/cc73e7c7-7860-4ef4-8fc8-1baf24569d2f/web/IN-en-20260126-TRIFECTA-perspective_90d714e8-acc9-4253-ab46-ca6b349c1989_small.jpg"
+        src={BG_URL}
         alt="Netflix Banner"
         className="absolute inset-0 h-full w-full object-cover"
       />
+
       <div className="absolute inset-0 bg-black/60"></div>
 
       <form
         onSubmit={handleSubmit}
-        className="absolute z-20 top-1/2 left-1/2 w-[380px]
-        -translate-x-1/2 -translate-y-1/2
-        bg-black/80 p-8 rounded-lg shadow-2xl"
+        className="absolute z-20 top-1/2 left-1/2 w-[380px] -translate-x-1/2 -translate-y-1/2 bg-black/80 p-8 rounded-lg shadow-2xl"
       >
         <h1 className="text-white text-3xl font-bold mb-6">
           {isSignInForm ? "Sign In" : "Sign Up"}
@@ -126,14 +125,15 @@ const Login = () => {
 
         <button
           type="submit"
-          className="mt-6 w-full bg-red-600 hover:bg-red-700
-          text-white p-3 rounded font-semibold transition-transform hover:scale-[1.02]"
+          className="mt-6 w-full bg-red-600 hover:bg-red-700 text-white p-3 rounded font-semibold transition-transform hover:scale-[1.02]"
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
 
         <p className="mt-6 text-gray-400 text-sm text-center">
-          {isSignInForm ? "New to Netflix?" : "Already have an account?"}{" "}
+          {isSignInForm
+            ? "New to Netflix?"
+            : "Already have an account?"}{" "}
           <span
             onClick={toggleSignInForm}
             className="text-white cursor-pointer hover:underline"

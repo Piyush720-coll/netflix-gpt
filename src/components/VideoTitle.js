@@ -1,4 +1,12 @@
-export const VideoTitle = ({ title, overview }) => {
+import { useNavigate } from "react-router-dom";
+
+export const VideoTitle = ({ movie }) => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate(`/watch/${movie.id}`, { state: { movie } });
+  };
+  console.log(movie);
+
   return (
     <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent text-white z-10">
       <div className="pt-[20%] px-12 max-w-2xl group">
@@ -10,7 +18,7 @@ export const VideoTitle = ({ title, overview }) => {
                      group-hover:translate-y-0
                      transition-transform duration-500 ease-out"
         >
-          {title}
+          {movie.title}
         </h1>
 
         {/* Description */}
@@ -22,7 +30,7 @@ export const VideoTitle = ({ title, overview }) => {
                      group-hover:blur-0
                      transition-all duration-500 ease-out delay-150"
         >
-          {overview}
+          {movie.overview}
         </p>
 
         {/* Buttons */}
@@ -30,6 +38,7 @@ export const VideoTitle = ({ title, overview }) => {
 
           {/* Play */}
           <button
+            onClick={handleNavigate}
             className="flex items-center gap-3 bg-white text-black
                        px-7 py-3 rounded-lg font-bold text-lg
                        shadow-lg shadow-black/40

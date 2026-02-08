@@ -10,4 +10,10 @@ export const API_OPTIONS = {
   }
 };
 
-export const IMG_CDN = "https://image.tmdb.org/t/p/w300";
+export const IMG_CDN = "https://image.tmdb.org/t/p/w300"
+
+export const  BG_URL = "https://assets.nflxext.com/ffe/siteui/vlv3/cc73e7c7-7860-4ef4-8fc8-1baf24569d2f/web/IN-en-20260126-TRIFECTA-perspective_90d714e8-acc9-4253-ab46-ca6b349c1989_small.jpg"
+
+export const OPENAI_KEY = process.env.REACT_APP_GEMINI_KEY
+
+export const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
