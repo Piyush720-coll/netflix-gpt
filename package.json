@@ -1,11 +1,7 @@
 {
-  "name": "brainrotmoviestreamingzabc",
-  "version": "1.0.0",
+  "name": "netflix-gpt",
+  "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "18.x",
-    "npm": "9.x"
-  },
   "dependencies": {
     "@google/genai": "^1.40.0",
     "@heroicons/react": "^2.2.0",
