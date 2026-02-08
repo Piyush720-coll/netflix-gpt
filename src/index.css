@@ -9,3 +9,175 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* index.css */
+/* ================= Global Styles ================= */
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #141414; /* Dark premium theme */
+  color: #fff;
+  overflow-x: hidden;
+  font-size: 12px; /* small base font */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* ================= Container ================= */
+.container {
+  width: 95%;
+  max-width: 375px; /* iPhone small width */
+  margin: 0 auto;
+  padding: 0 5px;
+}
+
+/* ================= Header ================= */
+.header {
+  display: flex;
+  flex-direction: column; /* stacked for small screens */
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 0;
+  background: rgba(20, 20, 20, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-logo {
+  width: 80px; /* very small logo */
+  cursor: pointer;
+}
+
+.header-nav {
+  display: flex;
+  gap: 6px;
+}
+
+.header-nav button {
+  background-color: #e50914;
+  color: #fff;
+  border: none;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.header-nav button:hover {
+  background-color: #f40612;
+}
+
+/* ================= Hero Section ================= */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 25vh; /* small hero */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 6px;
+}
+
+.hero-title {
+  font-size: 1rem; /* small heading */
+  font-weight: bold;
+  margin: 0;
+}
+
+.hero-description {
+  font-size: 0.7rem; /* small description */
+  margin-top: 4px;
+  max-width: 90%;
+}
+
+/* ================= Movie List ================= */
+.movie-section {
+  margin: 10px 0;
+}
+
+.movie-section h2 {
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  padding-left: 3px;
+}
+
+.movie-list {
+  display: flex;
+  gap: 0.3rem;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  scroll-behavior: smooth;
+}
+
+.movie-list::-webkit-scrollbar {
+  display: none;
+}
+
+.movie-card {
+  flex-shrink: 0;
+  width: 80px; /* compact cards */
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* ================= Footer ================= */
+.footer {
+  padding: 12px 5px;
+  background: #141414;
+  text-align: center;
+  font-size: 0.6rem;
+  color: #999;
+}
+
+/* ================= Extra Small iPhone Adjustments ================= */
+@media (max-width: 360px) {
+  .hero {
+    height: 20vh;
+  }
+
+  .hero-title {
+    font-size: 0.9rem;
+  }
+
+  .hero-description {
+    font-size: 0.65rem;
+  }
+
+  .movie-card {
+    width: 70px;
+  }
+
+  .header-logo {
+    width: 70px;
+  }
+
+  .header-nav button {
+    padding: 2px 6px;
+    font-size: 0.6rem;
+  }
+}
