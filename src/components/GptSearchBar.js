@@ -1,28 +1,25 @@
 import { useRef } from "react";
-import ai from "../utils/geminiMovies"; // Your Gemini AI instance
+import { getGroqChatCompletion } from "../utils/gptMovies";
 
 export const GptSearchBar = () => {
   const searchText = useRef(null);
 
   const handleGptSearchClick = async () => {
-    const userQuery = searchText.current.value;
-    if (!userQuery) return;
+    try {
+      const userQuery = searchText.current.value;
+      if (!userQuery) return;
 
-    const aiResult = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: [
-        {
-          role: "user",
-          text: `Act as a movie recommendation system and suggest 5 movies for the query: "${userQuery}". Only give me names, comma separated. Example: Gadar, Sholay, Don, Golmal, Koi Mil Gya`
-        }
-      ]
-    });
+      const completion = await getGroqChatCompletion(userQuery);
 
-    const movieText = aiResult?.candidates;
+      const result = completion.choices[0]?.message?.content || "";
 
+      // Optional: convert to array
+      const moviesArray = result.split(",").map((movie) => movie.trim());
 
-    console.log(movieText); // ✅ debug output
-};
+    } catch (error) {
+      console.error("Groq Error:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center pt-40 mt-10 px-4">

@@ -5,10 +5,9 @@ export const VideoTitle = ({ movie }) => {
   const handleNavigate = () => {
     navigate(`/watch/${movie.id}`, { state: { movie } });
   };
-  console.log(movie);
 
   return (
-    <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent text-white z-10">
+    <div className="absolute inset-0 -my-16 bg-gradient-to-r from-black via-black/70 to-transparent text-white z-10">
       <div className="pt-[20%] px-12 max-w-2xl group">
 
         {/* Title */}

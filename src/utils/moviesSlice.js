@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import TVShows from "../components/TVShows";
 
 const moviesSlice = createSlice({
   name: "movies",
@@ -6,6 +7,8 @@ const moviesSlice = createSlice({
     NowPlayingMovies: null,
     trailerVideo: null,
     PopularMovies: null,
+    nowMovies: null,
+    TVShows: null,
   },
   reducers: {
     addNowPlayingMovies: (state, action) => {
@@ -22,9 +25,15 @@ const moviesSlice = createSlice({
     },
     addTrailerVideo: (state, action) => {
       state.trailerVideo = action.payload;
-    }
+    },
+    addMovies: (state, action) => {
+      state.movies = action.payload; // ✅ store in "movies"
+    },
+    addTvShows: (state, action) => { // add this
+      state.tvShows = action.payload;
+    },
   },
 });
 
-export const { addNowPlayingMovies, addTrailerVideo, addPopularMovies, addTopRatedMovies, addUpcomingMovies } = moviesSlice.actions;
+export const { addNowPlayingMovies, addTrailerVideo, addPopularMovies, addTopRatedMovies, addUpcomingMovies, addMovies, addTvShows } = moviesSlice.actions;
 export default moviesSlice.reducer;
