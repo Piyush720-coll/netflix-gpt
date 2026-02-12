@@ -16,4 +16,4 @@ export const  BG_URL = "https://assets.nflxext.com/ffe/siteui/vlv3/cc73e7c7-7860
 
 export const GEMINI_KEY = process.env.REACT_APP_GEMINI_KEY
 
-export const TMDB_KEY = process.env.REACT_APP_TMDB_API_KEY
+export const TMDB_KEY = "a2a9d85d8fcbe60886c17f356f9e76e8"

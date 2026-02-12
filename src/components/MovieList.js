@@ -72,11 +72,9 @@ const MovieList = ({ title, movies }) => {
                    transition-all duration-300 ease-in-out
                    hover:scale-110 z-10"
       >
-        <img
-          src="https://freepngimg.com/download/play_button/25569-6-play-button-transparent.png"
-          alt="Scroll Left"
-          className="w-6 h-6 object-contain rotate-180"
-        />
+        <span className="text-white text-xl font-bold rotate-180 inline-block">
+          ➜
+        </span>
       </button>
 
       {/* Movie Row */}
@@ -87,11 +85,12 @@ const MovieList = ({ title, movies }) => {
         onMouseLeave={handleMouseLeave}
         onMouseUp={handleMouseUp}
         className="flex gap-4
+                   scale-110 mx-16 px-6
                    scrollbar-hide
                    scroll-smooth
                    cursor-pointer
                    overscroll-contain
-                   overflow-hidden"
+                   overflow-hidden py-3"
       >
         {movies?.map((movie) => (
           <div
@@ -112,11 +111,9 @@ const MovieList = ({ title, movies }) => {
                    transition-all duration-300 ease-in-out
                    hover:scale-110 z-10"
       >
-        <img
-          src="https://freepngimg.com/download/play_button/25569-6-play-button-transparent.png"
-          alt="Scroll Right"
-          className="w-6 h-6 object-contain"
-        />
+        <span className="text-white text-xl font-bold">
+          ➜
+        </span>
       </button>
     </div>
   );

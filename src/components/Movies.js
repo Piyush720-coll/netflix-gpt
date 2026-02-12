@@ -19,7 +19,7 @@ const Movies = () => {
 
       {/* Page Heading */}
       <div className="pt-32 px-10 pb-10 relative z-10">
-        <h1 className="text-5xl font-extrabold mb-3 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+        <h1 className="text-5xl font-extrabold mb-1 pb-2 bg-gradient-to-r from-red-500 via-pink-500 to-purple-500 bg-clip-text text-transparent">
           Trending Movies 🎬
         </h1>
 

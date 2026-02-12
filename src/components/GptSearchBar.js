@@ -1,20 +1,24 @@
-import { useRef } from "react";
-import { getGroqChatCompletion } from "../utils/gptMovies";
+import { useRef, useState, useEffect } from "react";
 
 export const GptSearchBar = () => {
   const searchText = useRef(null);
+  const [showMessage, setShowMessage] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
 
   const handleGptSearchClick = async () => {
     try {
-      const userQuery = searchText.current.value;
-      if (!userQuery) return;
+      setShowMessage(true);
+      setFadeOut(false);
 
-      const completion = await getGroqChatCompletion(userQuery);
+      // Start fade out after 4 seconds
+      setTimeout(() => {
+        setFadeOut(true);
+      }, 4000);
 
-      const result = completion.choices[0]?.message?.content || "";
-
-      // Optional: convert to array
-      const moviesArray = result.split(",").map((movie) => movie.trim());
+      // Remove completely after 5 seconds
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
 
     } catch (error) {
       console.error("Groq Error:", error);
@@ -55,6 +59,21 @@ export const GptSearchBar = () => {
           🚀 Search
         </button>
       </form>
+
+      {/* Fade Message */}
+      {showMessage && (
+        <div
+          className={`mt-6 px-6 py-3 
+          bg-gradient-to-r from-purple-700/80 to-pink-700/80 
+          text-white rounded-lg shadow-xl
+          backdrop-blur-md
+          transition-all duration-1000
+          ${fadeOut ? "opacity-0 translate-y-2" : "opacity-100 translate-y-0"}`}
+        >
+          🚧 GPT Movie Search is under construction. Coming soon!
+        </div>
+      )}
     </div>
   );
 };
+
